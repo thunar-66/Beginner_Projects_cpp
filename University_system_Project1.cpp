@@ -24,7 +24,7 @@
 
 // The major loop for menu is do while loop, where a condition choice !=0 that meaans until and till 0 is entered the entire program will not end
 
-
+// To access employee menu enter the password = qaz8937
 // END NOTES: The program is about 1000 lenght long, which make it seems something out the world however its not:
 
 #include<iostream>
@@ -57,7 +57,7 @@ class student_system{
 	    std::string sub_name[100];
 	
 		int grades[100];
-		long int balance;
+	    long int balance;
 	    std::string fee[100];
 	    int fee_payment[100];
 		
