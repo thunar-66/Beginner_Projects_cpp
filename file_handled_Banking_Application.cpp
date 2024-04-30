@@ -54,7 +54,7 @@ class bank{
 	 	myfile.open("Bank_store.csv",std::ios::app);
 	 	
 	 	if(myfile.is_open()){
-			if(myfile.tellp()==0 && myfile.tellp()==1){
+			if(myfile.tellp()==0){
 				myfile <<"NAME" <<',' <<"Password" <<',' <<"Account No" <<',' <<"Email ID" <<',' <<"Mobile No" <<',' <<"Intial Balance" <<"\n";
 			}
 	 	
