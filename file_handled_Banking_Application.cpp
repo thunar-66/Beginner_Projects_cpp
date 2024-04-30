@@ -54,6 +54,9 @@ class bank{
 	 	myfile.open("Bank_store.csv",std::ios::app);
 	 	
 	 	if(myfile.is_open()){
+			if(myfile.tellp()==0 && myfile.tellp()==1){
+				myfile <<"NAME" <<',' <<"Password" <<',' <<"Account No" <<',' <<"Email ID" <<',' <<"Mobile No" <<',' <<"Intial Balance" <<"\n";
+			}
 	 	
 			 for(int i=0 ;i<n;i++){
 			 	
@@ -182,7 +185,6 @@ class bank{
 // ask the user to input amount
 // we remove the bank_store.csv to indicate value changes
 // we rename temp.csv to bank_store.csv so display function works;
-
 
 	 bool deposit_money(std::string name,std::string password){
 	 	double amount;
