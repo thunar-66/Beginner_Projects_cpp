@@ -478,8 +478,7 @@ int main(){
 			 obj.delete_bank_info(name,password);
 			 break;
 			 
-			 case 0:
-			 	std::cout <<"Thanks "
+			
 			 	
 		}
 		std::cout <<"Press [1] to continue || Press [0] to exit :-- \n";
