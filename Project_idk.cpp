@@ -1,6 +1,7 @@
-// Csv File Based Data Storage For Basic Functions [made by birinder singh]
+// Csv File Based Data Storage / Mimics an Employee Registry To Some Extent [Made By Birinder singh]
+// echoing enabled 
 
-
+ 
 
 
 
@@ -11,6 +12,9 @@
 #include<sstream>
 #include<ctime>
 #include<cstring>
+#include<termios.h>
+#include<unistd.h>
+
 
 void display(){
     std::cout <<"\n";
@@ -48,6 +52,18 @@ class employee{
 
 
     public:
+     void setecho(bool enable){
+        struct termios tty;
+        tcgetattr(STDIN_FILENO, &tty);
+        if(!enable){
+            tty.c_lflag &= ~ECHO;
+
+        }
+        else{
+            tty.c_lflag |= ECHO;
+        }
+        (void) tcsetattr(STDIN_FILENO,TCSANOW, &tty);
+     }
      
      void input_data(int &n){
         std::fstream myfile("Emp.csv",std::ios::app);
@@ -67,14 +83,18 @@ class employee{
                 switch(class_choice){
                     case 1:
                      std::cout <<"::-- Create Password For Employee [" <<name <<"] :--[ ";
+                     setecho(false);
                      std::cin >> password;
+                     setecho(true);
                      new_line();
                      break;
 
                     case 2:
                      do{
                         std::cout <<"::-- Enter Lenght For Password Of Employee [" <<name <<"] :-- [ ";
+                        setecho(false);
                         std::cin >> lenght;
+                        setecho(true);
                         new_line();
                         if(lenght < 7 ){
                             std::cerr <<"::-- !! Lenght Should Be Greater Than or 7 :-- \n";
@@ -234,6 +254,7 @@ class employee{
                 
     
                 if(row_name == name && row_password == password){
+                    new_line();
                     new_line();
                     std::cout <<"! ARE YOUR SURE TO DELETE INFORMATION PERMANENTLY [ Press Enter Key ] \n";
                     std::cin.ignore();
@@ -505,9 +526,12 @@ int main(){
                     std::cout <<"Enter Registered Adminstrator Name :-- [ ";
                     std::getline(std::cin>>std::ws,name);
                     new_line();
-
-                    std::cout <<"Enter Password for Adminstrator [" <<name <<"] :--[ ";
+     
+                    std::cout <<"Enter Password for Adminstrator [" <<name <<"] :For Secuity Reason Password Will Not Be Visible :-\n";
+                    std::cout <<"-> ";
+                    emp.setecho(false);
                     std::cin >> password;
+                    emp.setecho(true);
 
                     if(name == row_name && password == row_password){
 
@@ -543,7 +567,9 @@ int main(){
                                  new_line();
 
                                  std::cout <<"Enter Password Of Employee [ " <<name_3 <<"] :-- [ ";
+                                 emp.setecho(false);
                                  std::cin >> password_3;
+                                 emp.setecho(true);
                                  emp.display_emp_info(name_3,password_3);
                                  break; 
 
@@ -555,7 +581,9 @@ int main(){
                                  new_line();
 
                                  std::cout <<"Enter Password Of Employee [ " <<name_3 <<"] :-- [ ";
+                                 emp.setecho(false);
                                  std::cin >> password_3;
+                                 emp.setecho(true);
                                  emp.promotion_emp(name_3,password_3);
                                  break;
 
@@ -566,7 +594,9 @@ int main(){
                                  new_line();
 
                                  std::cout <<"Enter Password Of Employee [ " <<name_3 <<"] :-- [ ";
+                                 emp.setecho(false);
                                  std::cin >> password_3;
+                                 emp.setecho(true);
 
                                  emp.change_credentials(name_3,password_3);
                                  break;
@@ -579,7 +609,9 @@ int main(){
                                 new_line();
 
                                 std::cout <<"Enter Password Of Employee [ " <<name_3 <<"] :-- [ ";
+                                emp.setecho(false);
                                 std::cin >> password_3;
+                                emp.setecho(true);
                                 emp.delete_employee_info(name_3,password_3);
                                 break;
                                   
@@ -624,7 +656,9 @@ int main(){
                 new_line();
 
                 std::cout <<"Create A Secure Password For Admin [" <<name <<"] :--[ ";
+                emp.setecho(false);
                 std::cin >> password;
+                emp.setecho(true);
                 new_line();
 
                 myfile <<name <<',' <<password <<"\n";
